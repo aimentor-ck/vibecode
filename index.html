@@ -1,137 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WeatherFlow — Live Weather</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Analytical Edupoint — software solutions, website design & development, and AI solutions for education and business.">
+  <title>Analytical Edupoint | Software, Web & AI Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="bg-orbs" aria-hidden="true">
-    <span class="orb orb-1"></span>
-    <span class="orb orb-2"></span>
-    <span class="orb orb-3"></span>
-  </div>
-
-  <main class="app">
-    <header class="header glass">
-      <div class="logo" aria-hidden="true">
-        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="16" cy="16" r="7" fill="currentColor" opacity="0.9"/>
-          <path d="M16 2v4M16 26v4M2 16h4M26 16h4M5.05 5.05l2.83 2.83M24.12 24.12l2.83 2.83M5.05 26.95l2.83-2.83M24.12 7.88l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h1>WeatherFlow</h1>
-      <p class="tagline">Real-time conditions at a glance</p>
-    </header>
-
-    <section class="controls glass">
-      <form class="search-form" id="searchForm" autocomplete="off">
-        <label for="citySearch" class="sr-only">Search city</label>
-        <div class="search-wrap">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"/>
-            <path d="M20 20l-3-3"/>
-          </svg>
-          <input
-            type="text"
-            id="citySearch"
-            placeholder="Search Mumbai, Delhi, London, Paris…"
-            list="citySuggestions"
-          />
-          <datalist id="citySuggestions">
-            <option value="Mumbai"></option>
-            <option value="Delhi"></option>
-            <option value="London"></option>
-            <option value="Paris"></option>
-          </datalist>
-          <button type="submit" class="btn-search">Search</button>
-        </div>
-      </form>
-
-      <div class="unit-toggle" role="group" aria-label="Temperature unit">
-        <button type="button" class="unit-btn active" data-unit="celsius" aria-pressed="true">°C</button>
-        <button type="button" class="unit-btn" data-unit="fahrenheit" aria-pressed="false">°F</button>
-      </div>
-    </section>
-
-    <div class="error-banner glass hidden" id="errorBanner" role="alert">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/>
-        <path d="M12 8v4M12 16h.01"/>
-      </svg>
-      <span id="errorMessage"></span>
-      <button type="button" class="error-dismiss" id="errorDismiss" aria-label="Dismiss error">×</button>
-    </div>
-
-    <section class="weather-card glass" id="weatherCard">
-      <div class="card-loading" id="cardLoading">
-        <div class="loader"></div>
-      </div>
-
-      <article class="card-content hidden" id="cardContent">
-        <div class="location-row">
-          <div>
-            <h2 class="city-name" id="cityName">—</h2>
-            <p class="region" id="region">—</p>
-          </div>
-          <span class="live-badge">
-            <span class="pulse"></span>
-            Live
-          </span>
-        </div>
-
-        <div class="main-display">
-          <div class="icon-stage" id="iconStage" data-weather="clear">
-            <!-- Animated icons injected by JS -->
-          </div>
-          <div class="temp-block">
-            <p class="temperature" id="temperature">—</p>
-            <p class="feels-like">Feels like <span id="feelsLike">—</span></p>
-          </div>
-        </div>
-
-        <p class="condition-text" id="conditionText">—</p>
-
-        <ul class="stats-grid">
-          <li class="stat glass-inner">
-            <span class="stat-label">Humidity</span>
-            <span class="stat-value" id="humidity">—</span>
-          </li>
-          <li class="stat glass-inner">
-            <span class="stat-label">Wind</span>
-            <span class="stat-value" id="wind">—</span>
-          </li>
-          <li class="stat glass-inner">
-            <span class="stat-label">Pressure</span>
-            <span class="stat-value" id="pressure">—</span>
-          </li>
-          <li class="stat glass-inner">
-            <span class="stat-label">Visibility</span>
-            <span class="stat-value" id="visibility">—</span>
-          </li>
+  <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Analytical <span class="text-accent">Edupoint</span></span>
+      </a>
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse" aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navCollapse">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#process">How we work</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link btn-nav-cta ms-lg-2" href="#contact">Get in touch</a></li>
         </ul>
-      </article>
-    </section>
+      </div>
+    </div>
+  </nav>
 
-    <section class="quick-cities">
-      <h3 class="section-title">Quick access</h3>
-      <div class="city-chips" id="cityChips">
-        <button type="button" class="chip" data-city="Mumbai">Mumbai</button>
-        <button type="button" class="chip" data-city="Delhi">Delhi</button>
-        <button type="button" class="chip" data-city="London">London</button>
-        <button type="button" class="chip" data-city="Paris">Paris</button>
+  <header id="home" class="hero position-relative overflow-hidden">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container position-relative py-5">
+      <div class="row align-items-center min-vh-100 py-5">
+        <div class="col-lg-7">
+          <p class="text-uppercase letter-spacing text-accent fw-semibold small mb-3 fade-in">Software · Web · AI</p>
+          <h1 class="display-4 fw-bold text-white mb-4 fade-in delay-1">Clarity-driven technology for <span class="text-gradient">learning and growth</span></h1>
+          <p class="lead text-white-50 mb-4 pe-lg-5 fade-in delay-2">Analytical Edupoint partners with institutions and businesses to ship reliable software, memorable web experiences, and practical AI that fits your workflow.</p>
+          <div class="d-flex flex-wrap gap-3 fade-in delay-3">
+            <a href="#contact" class="btn btn-accent btn-lg px-4">Start a project</a>
+            <a href="services.html" class="btn btn-outline-light btn-lg px-4">Explore services</a>
+          </div>
+        </div>
+        <div class="col-lg-5 mt-5 mt-lg-0">
+          <div class="hero-panel p-4 rounded-4 shadow-lg fade-in delay-2">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <span class="text-muted small">Engagement snapshot</span>
+              <span class="badge bg-success-subtle text-success">Live</span>
+            </div>
+            <div class="row g-3 text-center mb-4">
+              <div class="col-4">
+                <div class="stat-value" data-count="120">0</div>
+                <div class="stat-label">Projects</div>
+              </div>
+              <div class="col-4">
+                <div class="stat-value" data-count="48">0</div>
+                <div class="stat-label">Clients</div>
+              </div>
+              <div class="col-4">
+                <div class="stat-value" data-count="99">0</div>
+                <div class="stat-label">% SLA</div>
+              </div>
+            </div>
+            <p class="small text-muted mb-0">Illustrative metrics — replace with your real numbers when you go live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path fill="var(--ae-surface)" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"/></svg>
+    </div>
+  </header>
+
+  <main>
+    <section id="services" class="py-5 section-surface">
+      <div class="container py-lg-4">
+        <div class="row justify-content-center text-center mb-5">
+          <div class="col-lg-8">
+            <h2 class="section-title">What we deliver</h2>
+            <p class="text-muted lead fs-6">Three focused practice areas — each backed by analysis, clean architecture, and outcomes you can measure.</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <article class="card service-card h-100 border-0 shadow-sm position-relative">
+              <div class="card-body p-4 p-lg-5">
+                <div class="icon-wrap mb-4" data-icon="code">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                </div>
+                <h3 class="h5 fw-bold mb-3">Software solutions</h3>
+                <p class="text-muted mb-4">Custom applications, integrations, dashboards, and internal tools — built for maintainability and scale.</p>
+                <ul class="list-unstyled small text-muted mb-3">
+                  <li class="mb-2">· API design &amp; microservices</li>
+                  <li class="mb-2">· Cloud-ready deployments</li>
+                  <li>· Quality gates &amp; documentation</li>
+                </ul>
+                <p class="mb-0 small fw-semibold text-accent stretched-ignore">Learn more <span aria-hidden="true">→</span></p>
+                <a href="services.html#software" class="stretched-link" aria-label="Software solutions — full service details"></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="card service-card h-100 border-0 shadow-sm service-card-featured position-relative">
+              <div class="card-body p-4 p-lg-5">
+                <div class="icon-wrap mb-4" data-icon="web">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                </div>
+                <h3 class="h5 fw-bold mb-3">Website design &amp; development</h3>
+                <p class="text-muted mb-4">Brand-aligned UX, responsive layouts, performance tuning, and CMS handoff so your team can move fast.</p>
+                <ul class="list-unstyled small text-muted mb-3">
+                  <li class="mb-2">· UX/UI &amp; design systems</li>
+                  <li class="mb-2">· SEO &amp; accessibility</li>
+                  <li>· Ongoing support options</li>
+                </ul>
+                <p class="mb-0 small fw-semibold text-accent stretched-ignore">Learn more <span aria-hidden="true">→</span></p>
+                <a href="services.html#web" class="stretched-link" aria-label="Website design and development — full service details"></a>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="card service-card h-100 border-0 shadow-sm position-relative">
+              <div class="card-body p-4 p-lg-5">
+                <div class="icon-wrap mb-4" data-icon="ai">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a4 4 0 0 1 4 4v1h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2v4h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2v1a4 4 0 0 1-8 0v-1H8a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h2v-4H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2V6a4 4 0 0 1 4-4z"/></svg>
+                </div>
+                <h3 class="h5 fw-bold mb-3">AI solutions</h3>
+                <p class="text-muted mb-4">Assistants, retrieval pipelines, automation, and evaluation — grounded in your data and governance needs.</p>
+                <ul class="list-unstyled small text-muted mb-3">
+                  <li class="mb-2">· RAG &amp; knowledge bases</li>
+                  <li class="mb-2">· Workflow automation</li>
+                  <li>· Safety, logging &amp; cost control</li>
+                </ul>
+                <p class="mb-0 small fw-semibold text-accent stretched-ignore">Learn more <span aria-hidden="true">→</span></p>
+                <a href="services.html#ai" class="stretched-link" aria-label="AI solutions — full service details"></a>
+              </div>
+            </article>
+          </div>
+        </div>
       </div>
     </section>
 
-    <footer class="footer">
-      <p>Mock data for demo · Updated <span id="lastUpdated">—</span></p>
-    </footer>
+    <section id="process" class="py-5 bg-dark text-white position-relative overflow-hidden">
+      <div class="process-grid" aria-hidden="true"></div>
+      <div class="container py-lg-4 position-relative">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <h2 class="section-title text-white mb-3">How we work</h2>
+            <p class="text-white-50 mb-0">Short feedback loops, transparent milestones, and deliverables you can demo — not endless decks.</p>
+          </div>
+          <div class="col-lg-7">
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <div class="process-step p-4 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                  <span class="step-num">01</span>
+                  <h3 class="h6 fw-bold mt-3">Discover</h3>
+                  <p class="small text-white-50 mb-0">Goals, users, constraints, and success metrics — aligned before a line of production code.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="process-step p-4 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                  <span class="step-num">02</span>
+                  <h3 class="h6 fw-bold mt-3">Design &amp; prototype</h3>
+                  <p class="small text-white-50 mb-0">Flows, wireframes, or spikes to de-risk the hard parts early.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="process-step p-4 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                  <span class="step-num">03</span>
+                  <h3 class="h6 fw-bold mt-3">Build &amp; integrate</h3>
+                  <p class="small text-white-50 mb-0">Incremental releases with tests, observability, and handoff docs.</p>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="process-step p-4 rounded-3 bg-white bg-opacity-10 border border-white border-opacity-10">
+                  <span class="step-num">04</span>
+                  <h3 class="h6 fw-bold mt-3">Launch &amp; improve</h3>
+                  <p class="small text-white-50 mb-0">Hardening, training, and iteration based on real usage — not assumptions.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-5 section-surface">
+      <div class="container py-lg-4">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6">
+            <h2 class="section-title mb-3">About Analytical Edupoint</h2>
+            <p class="text-muted">We combine analytical rigor with practical delivery: education-focused thinking, engineering discipline, and a bias for shipping usable software.</p>
+            <p class="text-muted">Whether you need a student portal, a marketing site that converts, or an AI layer on top of your documents — we scope honestly, communicate clearly, and own the outcome with you.</p>
+            <div class="d-flex flex-wrap gap-4 mt-4">
+              <div>
+                <div class="h4 fw-bold text-dark mb-0">Vendor-neutral</div>
+                <div class="small text-muted">Right stack for the job</div>
+              </div>
+              <div>
+                <div class="h4 fw-bold text-dark mb-0">Security-minded</div>
+                <div class="small text-muted">Least privilege by default</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="about-card p-4 p-lg-5 rounded-4 border shadow-sm bg-white">
+              <blockquote class="mb-0">
+                <p class="fst-italic text-muted mb-4">“We needed one partner who could modernize our site and pilot an internal Q&amp;A bot. Analytical Edupoint kept both tracks in sync and made adoption easy for staff.”</p>
+                <footer class="d-flex align-items-center gap-3">
+                  <div class="avatar rounded-circle bg-accent-subtle text-accent fw-bold d-flex align-items-center justify-content-center" style="width:48px;height:48px;">JD</div>
+                  <div>
+                    <div class="fw-semibold">Jordan Davis</div>
+                    <div class="small text-muted">Placeholder testimonial — swap for a real quote</div>
+                  </div>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-5 bg-light">
+      <div class="container py-lg-4">
+        <div class="row g-5">
+          <div class="col-lg-5">
+            <h2 class="section-title mb-3">Let’s talk</h2>
+            <p class="text-muted mb-4">Tell us what you’re building. We’ll reply with next steps — usually a short call or a written proposal within a few business days.</p>
+            <div class="contact-meta">
+              <p class="mb-2"><strong>Email</strong><br><a href="mailto:hello@analyticaledupoint.com" class="link-dark">hello@analyticaledupoint.com</a></p>
+              <p class="mb-0 small text-muted">Update this address to your production inbox before launch.</p>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <form id="contactForm" class="card border-0 shadow-sm p-4 p-lg-5" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control form-control-lg" id="name" name="name" required minlength="2" placeholder="Your name">
+                  <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Work email</label>
+                  <input type="email" class="form-control form-control-lg" id="email" name="email" required placeholder="you@organization.com">
+                  <div class="invalid-feedback">Please enter a valid email.</div>
+                </div>
+                <div class="col-12">
+                  <label for="service" class="form-label">I’m interested in</label>
+                  <select class="form-select form-select-lg" id="service" name="service" required>
+                    <option value="" selected disabled>Choose a service…</option>
+                    <option value="software">Software solutions</option>
+                    <option value="web">Website design &amp; development</option>
+                    <option value="ai">AI solutions</option>
+                    <option value="multiple">Multiple / not sure yet</option>
+                  </select>
+                  <div class="invalid-feedback">Please select an option.</div>
+                </div>
+                <div class="col-12">
+                  <label for="message" class="form-label">Project brief</label>
+                  <textarea class="form-control" id="message" name="message" rows="4" required minlength="20" placeholder="Goals, timeline, budget range, and any links…"></textarea>
+                  <div class="invalid-feedback">Please share at least a few sentences (20+ characters).</div>
+                </div>
+                <div class="col-12 d-flex align-items-center gap-3 flex-wrap">
+                  <button type="submit" class="btn btn-accent btn-lg px-4" id="submitBtn">Send message</button>
+                  <span id="formStatus" class="small text-muted" role="status" aria-live="polite"></span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <script src="script.js"></script>
+  <footer class="footer py-5 text-white">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="brand-mark brand-mark-sm" aria-hidden="true"></span>
+            <span class="fw-bold">Analytical Edupoint</span>
+          </div>
+          <p class="small text-white-50 mb-0">Software solutions · Website design &amp; development · AI solutions</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="small text-white-50 mb-0">&copy; <span id="year"></span> Analytical Edupoint. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
