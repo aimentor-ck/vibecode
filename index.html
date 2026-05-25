@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeatherFlow — Live Weather</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb orb-1"></span>
+    <span class="orb orb-2"></span>
+    <span class="orb orb-3"></span>
+  </div>
+
+  <main class="app">
+    <header class="header glass">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="7" fill="currentColor" opacity="0.9"/>
+          <path d="M16 2v4M16 26v4M2 16h4M26 16h4M5.05 5.05l2.83 2.83M24.12 24.12l2.83 2.83M5.05 26.95l2.83-2.83M24.12 7.88l2.83-2.83" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h1>WeatherFlow</h1>
+      <p class="tagline">Real-time conditions at a glance</p>
+    </header>
+
+    <section class="controls glass">
+      <form class="search-form" id="searchForm" autocomplete="off">
+        <label for="citySearch" class="sr-only">Search city</label>
+        <div class="search-wrap">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/>
+            <path d="M20 20l-3-3"/>
+          </svg>
+          <input
+            type="text"
+            id="citySearch"
+            placeholder="Search Mumbai, Delhi, London, Paris…"
+            list="citySuggestions"
+          />
+          <datalist id="citySuggestions">
+            <option value="Mumbai"></option>
+            <option value="Delhi"></option>
+            <option value="London"></option>
+            <option value="Paris"></option>
+          </datalist>
+          <button type="submit" class="btn-search">Search</button>
+        </div>
+      </form>
+
+      <div class="unit-toggle" role="group" aria-label="Temperature unit">
+        <button type="button" class="unit-btn active" data-unit="celsius" aria-pressed="true">°C</button>
+        <button type="button" class="unit-btn" data-unit="fahrenheit" aria-pressed="false">°F</button>
+      </div>
+    </section>
+
+    <div class="error-banner glass hidden" id="errorBanner" role="alert">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 8v4M12 16h.01"/>
+      </svg>
+      <span id="errorMessage"></span>
+      <button type="button" class="error-dismiss" id="errorDismiss" aria-label="Dismiss error">×</button>
+    </div>
+
+    <section class="weather-card glass" id="weatherCard">
+      <div class="card-loading" id="cardLoading">
+        <div class="loader"></div>
+      </div>
+
+      <article class="card-content hidden" id="cardContent">
+        <div class="location-row">
+          <div>
+            <h2 class="city-name" id="cityName">—</h2>
+            <p class="region" id="region">—</p>
+          </div>
+          <span class="live-badge">
+            <span class="pulse"></span>
+            Live
+          </span>
+        </div>
+
+        <div class="main-display">
+          <div class="icon-stage" id="iconStage" data-weather="clear">
+            <!-- Animated icons injected by JS -->
+          </div>
+          <div class="temp-block">
+            <p class="temperature" id="temperature">—</p>
+            <p class="feels-like">Feels like <span id="feelsLike">—</span></p>
+          </div>
+        </div>
+
+        <p class="condition-text" id="conditionText">—</p>
+
+        <ul class="stats-grid">
+          <li class="stat glass-inner">
+            <span class="stat-label">Humidity</span>
+            <span class="stat-value" id="humidity">—</span>
+          </li>
+          <li class="stat glass-inner">
+            <span class="stat-label">Wind</span>
+            <span class="stat-value" id="wind">—</span>
+          </li>
+          <li class="stat glass-inner">
+            <span class="stat-label">Pressure</span>
+            <span class="stat-value" id="pressure">—</span>
+          </li>
+          <li class="stat glass-inner">
+            <span class="stat-label">Visibility</span>
+            <span class="stat-value" id="visibility">—</span>
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="quick-cities">
+      <h3 class="section-title">Quick access</h3>
+      <div class="city-chips" id="cityChips">
+        <button type="button" class="chip" data-city="Mumbai">Mumbai</button>
+        <button type="button" class="chip" data-city="Delhi">Delhi</button>
+        <button type="button" class="chip" data-city="London">London</button>
+        <button type="button" class="chip" data-city="Paris">Paris</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Mock data for demo · Updated <span id="lastUpdated">—</span></p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
